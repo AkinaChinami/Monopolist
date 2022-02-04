@@ -1,0 +1,13 @@
+package com.example.monopolist;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class MonopolistApplicationTests {
+
+	@Test
+	void contextLoads() {
+	}
+
+}
