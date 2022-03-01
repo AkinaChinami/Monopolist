@@ -10,10 +10,10 @@
     <lastupdate>12345</lastupdate>
     <products>
         <product>
-            <id>123</id>
-            <name>str1234</name>
+            <id>1</id>
+            <name>tente</name>
             <logo>str1234</logo>
-            <cout>3.1415926535</cout>
+            <cout>10</cout>
             <croissance>3.1415926535</croissance>
             <revenu>3.1415926535</revenu>
             <vitesse>123</vitesse>

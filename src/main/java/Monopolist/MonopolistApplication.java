@@ -1,4 +1,4 @@
-package com.example.monopolist;
+package Monopolist;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
