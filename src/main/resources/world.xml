@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <world>
-    <name>str1234</name>
-    <logo>str1234</logo>
+    <name>monde1</name>
+    <logo>logo-monopolist</logo>
     <money>3.1415926535</money>
     <score>3.1415926535</score>
     <totalangels>3.1415926535</totalangels>

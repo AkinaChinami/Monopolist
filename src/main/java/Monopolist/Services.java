@@ -1,5 +1,6 @@
 package Monopolist;
 
+import generated.ProductType;
 import generated.World;
 
 import javax.xml.bind.JAXBContext;
@@ -12,15 +13,21 @@ import java.io.OutputStream;
 
 public class Services {
 
-    public World readWorldFromXml() {
-        World world1;
+    String filePath = "src/main/resources";
+
+    public World readWorldFromXml(String username) {
+        World world;
         try {
             JAXBContext cont = JAXBContext.newInstance(World.class);
             Unmarshaller u = cont.createUnmarshaller();
-            InputStream input =
-                    getClass().getClassLoader().getResourceAsStream("world.xml");
-            world1 = (World) u.unmarshal(input);
-            return world1;
+            File file = new File(filePath+username+"-world.xml");
+            if (file.exists()) {
+                world = (World) u.unmarshal(file);
+            } else {
+                InputStream input = getClass().getClassLoader().getResourceAsStream(filePath+"world.xml");
+                world = (World) u.unmarshal(input);
+            }
+            return world;
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -28,19 +35,26 @@ public class Services {
         return new World();
     }
 
-    public void saveWordlToXml(World world) {
+    public void saveWordlToXml(World world, String username) {
         try {
             JAXBContext cont = JAXBContext.newInstance(World.class);
             Marshaller m = cont.createMarshaller();
-            OutputStream output = new FileOutputStream("world.xml");
-            m.marshal(world, output);
+            File file = new File(filePath+username+"-world.xml");
+            if (file.exists()) {
+                m.marshal(world, file);
+            } else {
+                OutputStream output = new FileOutputStream(filePath+username+"world.xml");
+                m.marshal(world, output);
+            }
         }
         catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public World getWorld() {
-        return readWorldFromXml();
+    public World getWorld(String username) {
+        World world = readWorldFromXml(username);
+        saveWordlToXml(world, username);
+        return world;
     }
 }
