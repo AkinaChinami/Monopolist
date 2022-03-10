@@ -12,13 +12,13 @@
         <product>
             <id>1</id>
             <name>tente</name>
-            <logo>str1234</logo>
+            <logo>src/main/webapp/icones/Icon/1_Tente/Luxe.png</logo>
             <cout>10</cout>
-            <croissance>3.1415926535</croissance>
-            <revenu>3.1415926535</revenu>
-            <vitesse>123</vitesse>
-            <quantite>123</quantite>
-            <timeleft>12345</timeleft>
+            <croissance>2</croissance>
+            <revenu>2</revenu>
+            <vitesse>1</vitesse>
+            <quantite>1</quantite>
+            <timeleft>1</timeleft>
             <managerUnlocked>true</managerUnlocked>
             <palliers>
                 <pallier>
@@ -33,7 +33,7 @@
             </palliers>
         </product>
         <product>
-            <id>123</id>
+            <id>2</id>
             <name>str1234</name>
             <logo>str1234</logo>
             <cout>3.1415926535</cout>
