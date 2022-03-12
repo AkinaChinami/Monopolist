@@ -4,6 +4,7 @@ import com.sun.xml.bind.v2.TODO;
 import generated.*;
 import org.glassfish.hk2.runlevel.internal.WouldBlockException;
 
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
@@ -59,7 +60,7 @@ public class Services {
 
     public World getWorld(String username) {
         World world = readWorldFromXml(username);
-        //updateScoreUSer(world);
+       // updateScoreUSer(world);
         saveWordlToXml(world, username);
         return world;
     }
@@ -111,7 +112,7 @@ public class Services {
     /* prend en paramètre le pseudo du joueur et le manager acheté.
      * renvoie false si l’action n’a pas pu être traitée
      */
-/*    public Boolean updateManager(String username, PallierType newmanager) {
+ /*   public Boolean updateManager(String username, PallierType newmanager) {
         // aller chercher le monde qui correspond au joueur
         World world = getWorld(username);
         // trouver dans ce monde, le manager équivalent à celui passé en paramètre
@@ -136,14 +137,14 @@ public class Services {
     public PallierType findManagerByName(World world, String name) {
         List<PallierType> pallierTypeList = world.getManagers().getPallier();
         for (PallierType pallierType : pallierTypeList) {
-            if (pallierType.getName() == name) {
+            if (pallierType.getName().equals(name)) {
                 return pallierType;
             }
         }
         return null;
     }
 
-    public void updateScoreUSer(World world) {
+    public void updateScoreUSer(@NotNull World world) {
         List<ProductType> productTypeList = world.getProducts().getProduct();
         long lastUpdate = System.currentTimeMillis() - world.getLastupdate();
         for (ProductType productType : productTypeList) {
@@ -160,5 +161,8 @@ public class Services {
         }
         world.setLastupdate(System.currentTimeMillis());
     }
-*/
+
+    public void upgrade(String name, PallierType upgrade) {
+
+    }*/
 }

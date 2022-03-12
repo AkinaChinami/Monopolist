@@ -12,7 +12,7 @@
         <product>
             <id>1</id>
             <name>tente</name>
-            <logo>src/main/webapp/icones/Icon/1_Tente/Luxe.png</logo>
+            <logo>src/main/webapp /icones/Icon/1_Tente/Luxe.png</logo>
             <cout>10</cout>
             <croissance>2</croissance>
             <revenu>2</revenu>

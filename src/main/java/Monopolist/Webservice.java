@@ -2,66 +2,59 @@ package Monopolist;
 
 import generated.PallierType;
 import generated.ProductType;
+import generated.World;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.*;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-
-@Path("generic")
+@RestController
+@RequestMapping("monopolist/generic")
+@CrossOrigin
 public class Webservice {
     Services services;
+
     public Webservice() {
         services = new Services();
     }
 
-    @GET
-    @Path("world")
-    @Produces({MediaType.APPLICATION_JSON})
-    public Response getWorld(@Context HttpServletRequest request) {
-        String username = request.getHeader("X-user");
-        return Response.ok(services.getWorld(username)).build();
+    @GetMapping(value = "world", produces = {"application/xml", "application/json"})
+    public ResponseEntity<World> getWorld(@RequestHeader(value = "X-User", required = false) String username) {
+        World world = services.getWorld(username);
+        return ResponseEntity.ok(world);
     }
 /*
-    @PUT
-    @Path("product")
-    @Produces({MediaType.APPLICATION_JSON})
-    public Response updateProduct(String username, ProductType productType) {
-        services.updateProduct(username, productType);
-        return Response.ok(services.getWorld(username)).build();
+    @PutMapping(name = "product", produces = {"application/xml", "application/json"})
+    public ProductType updateProduct(
+            @RequestHeader(value = "X-User", required = false) String username,
+            @RequestBody ProductType productType) {
+        if (services.updateProduct(username, productType)) {
+            return productType;
+        } else {
+            return new ProductType();
+        }
+    }*/
+/*
+    @PutMapping(name = "manager", produces = {"application/xml", "application/json"})
+    public PallierType updateManager(
+            @RequestHeader(value = "X-User", required = false) String username,
+            @RequestBody PallierType pallierType) {
+        if (services.updateManager(username, pallierType)) {
+            return pallierType;
+        } else {
+            return null;
+        }
+    }
+*//*
+    @PutMapping(name="manager", produces = {"application/xml", "application/json"} )
+    public PallierType upgrade(
+            @RequestHeader(value = "X-User", required = false) String username,
+            @RequestBody PallierType pallierType) {
+        if (services.updateManager(username, pallierType)) {
+            return pallierType;
+        }
+        else {
+            return null;
+        }
     }
 
-    @PUT
-    @Path("manager")
-    @Produces({MediaType.APPLICATION_JSON})
-    public Response updateProductManager(String username, PallierType pallierType) {
-        services.updateManager(username, pallierType);
-        return Response.ok(services.getWorld(username)).build();
-    }
-
-
-
-    @PUT
-    @Path("upgrade")
-    @Produces({MediaType.APPLICATION_JSON})
-    public Response upgrade(String username) {
-        return Response.ok(services.getWorld(username)).build();
-    }
-
-    @PUT
-    @Path("angelupgrade")
-    @Produces({MediaType.APPLICATION_JSON})
-    public Response angelupgrade(String username) {
-        return Response.ok(services.getWorld(username)).build();
-    }
-
-    @DELETE
-    @Path("world")
-    @Produces({MediaType.APPLICATION_JSON})
-    public Response deleteWorld(String username) {
-        return Response.ok(services.getWorld(username)).build();
-    }
-    */
+ */
 }
-
