@@ -60,7 +60,7 @@ public class Services {
 
     public World getWorld(String username) {
         World world = readWorldFromXml(username);
-       // updateScoreUSer(world);
+        updateScoreUSer(world);
         saveWordlToXml(world, username);
         return world;
     }
@@ -70,7 +70,7 @@ public class Services {
      * achat d’une certaine quantité de produit)
     */
     // renvoie false si l’action n’a pas pu être traitée
-/*    public Boolean updateProduct(String username, ProductType newproduct) {
+    public Boolean updateProduct(String username, ProductType newproduct) {
         // aller chercher le monde qui correspond au joueur
         World world = getWorld(username);
         // trouver dans ce monde, le produit équivalent à celui passé en paramètre
@@ -108,17 +108,16 @@ public class Services {
         }
         return null;
     }
-*/
+
     /* prend en paramètre le pseudo du joueur et le manager acheté.
      * renvoie false si l’action n’a pas pu être traitée
      */
- /*   public Boolean updateManager(String username, PallierType newmanager) {
+    public Boolean updateManager(String username, PallierType newmanager) {
         // aller chercher le monde qui correspond au joueur
         World world = getWorld(username);
         // trouver dans ce monde, le manager équivalent à celui passé en paramètre
         PallierType manager = findManagerByName(world, newmanager.getName());
         if (manager == null) { return false; }
-
         // débloquer ce manager
         manager.setUnlocked(true);
         // trouver le produit correspondant au manager
@@ -161,7 +160,7 @@ public class Services {
         }
         world.setLastupdate(System.currentTimeMillis());
     }
-
+/*
     public void upgrade(String name, PallierType upgrade) {
 
     }*/

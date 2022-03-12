@@ -21,8 +21,8 @@ public class Webservice {
         World world = services.getWorld(username);
         return ResponseEntity.ok(world);
     }
-/*
-    @PutMapping(name = "product", produces = {"application/xml", "application/json"})
+
+    @PutMapping(value = "product", produces = {"application/xml", "application/json"})
     public ProductType updateProduct(
             @RequestHeader(value = "X-User", required = false) String username,
             @RequestBody ProductType productType) {
@@ -31,9 +31,9 @@ public class Webservice {
         } else {
             return new ProductType();
         }
-    }*/
-/*
-    @PutMapping(name = "manager", produces = {"application/xml", "application/json"})
+    }
+
+    @PutMapping(value = "manager", produces = {"application/xml", "application/json"})
     public PallierType updateManager(
             @RequestHeader(value = "X-User", required = false) String username,
             @RequestBody PallierType pallierType) {
@@ -43,7 +43,7 @@ public class Webservice {
             return null;
         }
     }
-*//*
+/*
     @PutMapping(name="manager", produces = {"application/xml", "application/json"} )
     public PallierType upgrade(
             @RequestHeader(value = "X-User", required = false) String username,
