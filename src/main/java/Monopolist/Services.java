@@ -150,7 +150,7 @@ public class Services {
 
         for (ProductType productType : productTypeList) {
             if (!productType.isManagerUnlocked()) {
-                if ((productType.getTimeleft() != 0) && (productType.getTimeleft() < lastUpdate)) {
+                if ((productType.getTimeleft() != 0) && (productType.getTimeleft() <= lastUpdate)) {
                     addScore += productType.getRevenu() * productType.getQuantite();
                     productType.setTimeleft(0);
                 } else if (productType.getTimeleft() > 0) {
