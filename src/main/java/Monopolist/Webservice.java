@@ -22,18 +22,18 @@ public class Webservice {
         return ResponseEntity.ok(world);
     }
 
-    @PutMapping(value = "product", produces = {"application/xml", "application/json"})
+    @PutMapping(value = "product", consumes = {"application/xml", "application/json"})
     public ProductType updateProduct(
             @RequestHeader(value = "X-User", required = false) String username,
             @RequestBody ProductType productType) {
         if (services.updateProduct(username, productType)) {
             return productType;
         } else {
-            return new ProductType();
+            return null;
         }
     }
 
-    @PutMapping(value = "manager", produces = {"application/xml", "application/json"})
+    @PutMapping(value = "manager", consumes = {"application/xml", "application/json"})
     public PallierType updateManager(
             @RequestHeader(value = "X-User", required = false) String username,
             @RequestBody PallierType pallierType) {

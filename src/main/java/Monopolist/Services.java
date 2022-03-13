@@ -78,11 +78,26 @@ public class Services {
         if (qtchange > 0) {
             double money = world.getMoney();
             double productPrice = newproduct.getCout();
-            int productQuantite = newproduct.getQuantite();
             double productCroissance = newproduct.getCroissance();
-            double coutNProduct = productPrice * (1 - Math.pow(productCroissance, productQuantite))/ (1 - productCroissance);
+            double coutNProduct = productPrice * (1 - Math.pow(productCroissance, qtchange))/ (1 - productCroissance);
             world.setMoney(money - coutNProduct);
-            product.setQuantite(product.getQuantite() + newproduct.getQuantite());
+            product.setCout(newproduct.getCout());
+            product.setQuantite(newproduct.getQuantite());
+
+            PalliersType palliersType = product.getPalliers();
+            List<PallierType> pallierTypeList = palliersType.getPallier();
+            for (PallierType pallierType : pallierTypeList){
+                if (product.getQuantite() >= pallierType.getSeuil() && !pallierType.isUnlocked()){
+                    pallierType.setUnlocked(true);
+                    if (pallierType.getTyperatio() == TyperatioType.GAIN){
+                        product.setRevenu(product.getRevenu() * pallierType.getRatio());
+                    }
+                    else if (pallierType.getTyperatio() == TyperatioType.VITESSE){
+                        product.setVitesse((int) (product.getVitesse() / pallierType.getRatio()));
+                        product.setTimeleft((long) (product.getTimeleft() / pallierType.getRatio()));
+                    }
+                }
+            }
         } else {
             product.setTimeleft(product.getVitesse());
         }
@@ -131,19 +146,28 @@ public class Services {
     public void updateScoreUSer(@NotNull World world) {
         List<ProductType> productTypeList = world.getProducts().getProduct();
         long lastUpdate = System.currentTimeMillis() - world.getLastupdate();
+        double addScore = 0;
+
         for (ProductType productType : productTypeList) {
             if (!productType.isManagerUnlocked()) {
                 if ((productType.getTimeleft() != 0) && (productType.getTimeleft() < lastUpdate)) {
-                    world.setScore(world.getScore() + productType.getQuantite()*productType.getRevenu());
-                } else {
+                    addScore += productType.getRevenu() * productType.getQuantite();
+                    productType.setTimeleft(0);
+                } else if (productType.getTimeleft() > 0) {
                     productType.setTimeleft(productType.getTimeleft() - lastUpdate);
                 }
             } else {
                 long nbProduct = lastUpdate / productType.getVitesse();
-                world.setScore(world.getScore() + nbProduct*productType.getRevenu());
+                if (nbProduct > 0){
+                    addScore += (nbProduct + productType.getQuantite()) * productType.getRevenu();
+                } else{
+                    productType.setTimeleft(productType.getTimeleft() - lastUpdate);
+                }
             }
         }
         world.setLastupdate(System.currentTimeMillis());
+        world.setScore(world.getScore() + addScore);
+        world.setMoney(world.getMoney() + addScore);
     }
 /*
     public void upgrade(String name, PallierType upgrade) {
