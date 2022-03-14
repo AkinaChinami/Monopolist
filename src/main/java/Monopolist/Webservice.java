@@ -6,8 +6,6 @@ import generated.World;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.lang.invoke.DelegatingMethodHandle$Holder;
-
 @RestController
 @RequestMapping("monopolist/generic")
 @CrossOrigin
@@ -57,7 +55,7 @@ public class Webservice {
             return null;
         }
     }
-
+/*
     @PutMapping(value = "upgrade", produces = {"application/xml", "application/json"} )
     public PallierType angelUpgrade(
             @RequestHeader(value = "X-User", required = false) String username,
@@ -68,12 +66,12 @@ public class Webservice {
         else {
             return null;
         }
-    }
-
+    }*/
+/*
     @DeleteMapping(name="world", produces = {"application/xml", "application/json"})
     public ResponseEntity<World> deleteWorld (@RequestHeader(value = "X-User", required = false) String username) {
         services.deleteWorld(username);
         return ResponseEntity.ok(services.getWorld(username));
     }
-
+*/
 }

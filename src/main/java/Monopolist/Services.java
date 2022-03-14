@@ -13,6 +13,7 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
+import java.util.Objects;
 
 public class Services {
 
@@ -169,8 +170,57 @@ public class Services {
         world.setScore(world.getScore() + addScore);
         world.setMoney(world.getMoney() + addScore);
     }
-/*
-    public void upgrade(String name, PallierType upgrade) {
 
-    }*/
-}
+    public PallierType findUpgradeByName(World world, String name) {
+        List<PallierType> pallierTypeList = world.getUpgrades().getPallier();
+        for (PallierType upgrade : pallierTypeList) {
+            if (upgrade.getName().equals(name)) {
+                return upgrade;
+            }
+        }
+        return null;
+    }
+
+public boolean upgrade(String username, PallierType newUpgrade){
+        World world = getWorld(username);
+        PallierType upgrade = findUpgradeByName(world, newUpgrade.getName());
+        if (newUpgrade.getIdcible() == 0){
+            for (ProductType productType: world.getProducts().getProduct()){
+                if (upgrade.getTyperatio() == TyperatioType.VITESSE){
+                    productType.setVitesse((int) (productType.getVitesse() / upgrade.getRatio()));
+                    productType.setTimeleft((long) (productType.getTimeleft() / upgrade.getRatio()));
+                }
+                else if (upgrade.getTyperatio() == TyperatioType.GAIN){
+                    productType.setRevenu(productType.getRevenu() * upgrade.getRatio());
+                }
+            }
+        }
+        else{
+            ProductType product = findProductById(world, newUpgrade.getIdcible());
+            if (product == null){return false;}
+            if (upgrade.getTyperatio() == TyperatioType.VITESSE){
+                product.setVitesse((int) (product.getVitesse() / upgrade.getRatio()));
+                product.setTimeleft((long) (product.getTimeleft() / upgrade.getRatio()));
+            }
+            else if (upgrade.getTyperatio() == TyperatioType.GAIN){
+                product.setRevenu(product.getRevenu() * upgrade.getRatio());
+            }
+        }
+        upgrade.setUnlocked(true);
+        world.setMoney(world.getMoney() - upgrade.getSeuil());
+        upgrade.setRatio(1);
+        world.setLastupdate(System.currentTimeMillis());
+        saveWordlToXml(world, username);
+        return true;
+    }
+
+
+    /*
+    public boolean angelUpgrade(String name, PallierType angelupgrades) {
+        return true;
+    }
+
+    public void deleteWorld(String name) {
+
+    }
+*/}
