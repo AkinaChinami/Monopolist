@@ -152,7 +152,8 @@ public class Services {
         for (ProductType productType : productTypeList) {
             if (!productType.isManagerUnlocked()) {
                 if ((productType.getTimeleft() != 0) && (productType.getTimeleft() <= lastUpdate)) {
-                    addScore += productType.getRevenu() * productType.getQuantite();
+                    addScore += productType.getRevenu() * productType.getQuantite() *
+                            (1 + world.getActiveangels() * world.getAngelbonus() / 100);
                     productType.setTimeleft(0);
                 } else if (productType.getTimeleft() > 0) {
                     productType.setTimeleft(productType.getTimeleft() - lastUpdate);
@@ -160,7 +161,9 @@ public class Services {
             } else {
                 long nbProduct = lastUpdate / productType.getVitesse();
                 if (nbProduct > 0){
-                    addScore += (nbProduct + productType.getQuantite()) * productType.getRevenu();
+                    addScore += (
+                            nbProduct +productType.getQuantite()) * productType.getRevenu() *
+                            (1 + world.getActiveangels() * world.getAngelbonus() / 100);
                 } else{
                     productType.setTimeleft(productType.getTimeleft() - lastUpdate);
                 }
