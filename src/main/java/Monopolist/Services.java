@@ -214,13 +214,32 @@ public boolean upgrade(String username, PallierType newUpgrade){
         return true;
     }
 
-
     /*
     public boolean angelUpgrade(String name, PallierType angelupgrades) {
         return true;
     }
+*/
+    public void deleteWorld(String username) {
+        World world;
+        try {
+            JAXBContext jaxbContext = JAXBContext.newInstance(World.class);
+            Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+            InputStream input = getClass().getClassLoader().getResourceAsStream("world.xml");
+            World newWorld = (World) jaxbUnmarshaller.unmarshal(input);
+            assert input != null;
+            input.close();
 
-    public void deleteWorld(String name) {
+            File f = new File(filePath + username + "-world.xml");
+            world = (World) jaxbUnmarshaller.unmarshal(f);
 
+            newWorld.setScore(world.getScore());
+            double nbAnges = 150 * Math.sqrt(world.getScore() / Math.pow(10,15)) - world.getTotalangels();
+            newWorld.setActiveangels(nbAnges);
+            newWorld.setTotalangels(nbAnges);
+            saveWordlToXml(newWorld, username);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-*/}
+}

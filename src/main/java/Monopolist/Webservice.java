@@ -67,11 +67,11 @@ public class Webservice {
             return null;
         }
     }*/
-/*
+
     @DeleteMapping(name="world", produces = {"application/xml", "application/json"})
-    public ResponseEntity<World> deleteWorld (@RequestHeader(value = "X-User", required = false) String username) {
+    public ResponseEntity<World> deleteWorld(@RequestHeader(value = "X-User", required = false) String username) {
         services.deleteWorld(username);
         return ResponseEntity.ok(services.getWorld(username));
     }
-*/
+
 }
